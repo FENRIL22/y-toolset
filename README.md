@@ -4,6 +4,20 @@ GAEに関してのメモも同時にする．
 エキサイト翻訳並の文章校正しかしてません．
 気が向いたら整理するかも．
 
+## ファイル構造の参考
+* [Google App EngineでGoを動かすときに知っておくべきこと](http://motemen.hatenablog.com/entry/2016/11/gae-go-building#アプリケーションを構成するパッケージの置き場所とインポート)
+* [cloud Strage](http://otiai10.hatenablog.com/entry/2016/04/03/015038)
+* [datastore api](https://cloud.google.com/appengine/docs/standard/go/datastore/reference#Key)
+* [datastore query - データ取得](http://knightso.hateblo.jp/entry/2014/05/26/103458)
+* [datastore client package](https://cloud.google.com/datastore/docs/reference/libraries?hl=ja)
+
+## URLからの処理とか
+* [Go+GAE+Cloud Datastoreで簡単なREST APIを構築](http://qiita.com/silverfox/items/81769425e51f24e676d2)
+
+## hoge * [gcloud deploy](https://cloud.google.com/appengine/docs/standard/go/tools/uploadinganapp)
+
+
+
 
 ## Initialize
 ### インストール(GCP)
