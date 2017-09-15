@@ -11,6 +11,7 @@ import (
 	"github.com/gorilla/mux"
 	"encoding/json"
 	"lib/diva"
+	"lib/sluck"
 )
 
 
@@ -23,6 +24,7 @@ func init(){
 	r.HandleFunc("/update", updateHandler)
 	r.HandleFunc("/delete", deleteHandler)
 	r.HandleFunc("/jsonping", jsonPingHandler)
+	r.HandleFunc("/api/sluck", sluckHandler)
 	http.Handle("/", r)
 }
 
@@ -70,4 +72,11 @@ func jsonPingHandler(w http.ResponseWriter, r *http.Request) {
 
      w.Header().Set("Content-Type", "application/json")
      w.Write(res)
+ }
+
+ func sluckHandler(w http.ResponseWriter, r *http.Request) {
+	 sl := sluck.NewSluck(w, r)
+
+	 //fmt.Fprintln(w, sl.Hoge())
+	 sl.Recog()
  }

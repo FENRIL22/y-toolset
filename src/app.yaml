@@ -1,6 +1,9 @@
 runtime: go
 api_version: go1.8
 
+includes:
+- secret.yaml
+
 handlers:
 - url: /favicon.(.*)
   static_files: static/images/favicon.\1
