@@ -24,7 +24,7 @@ func init(){
 	r.HandleFunc("/update", updateHandler)
 	r.HandleFunc("/delete", deleteHandler)
 	r.HandleFunc("/jsonping", jsonPingHandler)
-	r.HandleFunc("/api/sluck", sluckHandler)
+	r.HandleFunc("/api/sluck/endpoint/{response}", sluckHandler)
 	http.Handle("/", r)
 }
 
@@ -75,8 +75,18 @@ func jsonPingHandler(w http.ResponseWriter, r *http.Request) {
  }
 
  func sluckHandler(w http.ResponseWriter, r *http.Request) {
+	 vars := mux.Vars(r)
+	 responsetype := vars["response"]
+
 	 sl := sluck.NewSluck(w, r)
 
 	 //fmt.Fprintln(w, sl.Hoge())
-	 sl.Recog()
+	 if( responsetype == "eventsub" ){
+		 sl.EventAPI()
+	 }else if( responsetype == "interactivereq"){
+		//sl.InteractiveAPI()
+		sluck.ResponseToRequest(w, r)
+	 }else{
+		 fmt.Fprintln(w, "hoge")
+	 }
  }
