@@ -10,20 +10,24 @@ type Node interface{
 	Type() string				//GetType
 	Save() bool					//Save to Datastore
 	Get() (interface{}, string)	//Get Primary Section and Description
-	Display()					//func for debug
+	String() string
+	//Display()					//func for debug
 }
 
 /* == Struct ======================================================== */
 type BaseNode struct {
 	id int
+	dataType string;
 }
 
-func (n *BaseNode) Id() int {
-	return n.id
+func (s *BaseNode) Id() int {
+	return s.id
 }
 
 /*
 //virtual method
-func (n *BaseNode) Type() string {}
-func (n *BaseNode) Display() {}
+func (s *BaseNode) Type() (string)
+func (s *BaseNode) String() (string)
+func (s *BaseNode) Display() (AnyData)
+func NewAnyStruct(need data) (*AnyStruct)
 */
