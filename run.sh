@@ -1,5 +1,5 @@
-source env.sh
-dev_appserver.py ./src/app.yaml
+source ${PWD}/env.sh
+dev_appserver.py ${PWD}/src/app.yaml
 
 #POS=${PWD}
 #

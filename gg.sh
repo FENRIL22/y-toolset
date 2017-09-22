@@ -1,2 +1,2 @@
-source env.sh
+source ${PWD}/env.sh
 go get $1
