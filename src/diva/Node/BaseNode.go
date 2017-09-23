@@ -1,4 +1,4 @@
-package diva
+package node
 
 import (
 )
