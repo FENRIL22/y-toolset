@@ -24,7 +24,7 @@ func (s *DivaContext) init(w http.ResponseWriter, r *http.Request){
 	s.r = r
 	s.ctx = appengine.NewContext(r)
 	s.data = make(chan int)
-	s.Ret = make(chan interface{})
+	s.Ret = make(chan interface{}, 10)
 }
 
 func NewDivaContext(w http.ResponseWriter, r *http.Request) *DivaContext{
@@ -55,6 +55,6 @@ func NewDebugger(w http.ResponseWriter, r *http.Request) (*Debugger, *DivaContex
 
 func (s * Debugger) Call() {
 	fmt.Fprintln(s.dctx.w, "teste")
-	//s.dctx.Ret <- "hogefuga"
+	s.dctx.Ret <- "hogefuga"
 
 }
