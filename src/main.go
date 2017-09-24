@@ -24,6 +24,7 @@ func init(){
 	r.HandleFunc("/update", updateHandler)
 	r.HandleFunc("/delete", deleteHandler)
 	r.HandleFunc("/jsonping", jsonPingHandler)
+	r.HandleFunc("/call", debugCallHandler)
 	r.HandleFunc("/api/sluck/endpoint/{response}", sluckHandler)
 	http.Handle("/", r)
 }
@@ -53,6 +54,13 @@ func urlDisassemblyHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 	fmt.Fprintln(w, id);
+}
+
+func debugCallHandler(w http.ResponseWriter, r *http.Request) {
+	nd, _ := diva.NewDebugger(w, r)
+	nd.Call()
+
+	//fmt.Fprintln(w, <-dc.Ret)
 }
 
 type Ping struct {
