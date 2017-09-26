@@ -17,10 +17,6 @@ import (
 /* == Struct ======================================================== */
 type NodeManager struct{
 	DataList []Node
-	//ctx interface{}
-}
-
-func (s *NodeManager) init() {
 }
 
 func NewNodeManager() *NodeManager {
@@ -30,3 +26,18 @@ func NewNodeManager() *NodeManager {
 
 	return s
 }
+
+func (s *NodeManager) init() {
+}
+
+func (s *NodeManager) deinit() {
+}
+
+func (s *NodeManager) Get() {
+}
+
+func (s *NodeManager) Put() {
+}
+
+//delete
+//add

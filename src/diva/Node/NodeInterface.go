@@ -6,28 +6,30 @@ import (
 
 /* == Interface ===================================================== */
 type Node interface{
-	Id() int					//GetID
+	Id() int64					//GetID
 	Type() string				//GetType
 	Save() bool					//Save to Datastore
 	Get() (interface{}, string)	//Get Primary Section and Description
 	String() string
-	//Display()					//func for debug
 }
 
 /* == Struct ======================================================== */
-type BaseNode struct {
-	id int
+type NodeBase struct {
+	id int64
 	dataType string;
 }
 
-func (s *BaseNode) Id() int {
+func (s *NodeBase) Id() int64 {
 	return s.id
+}
+
+func (s *NodeBase) Type() string {
+	return s.dataType;
 }
 
 /*
 //virtual method
-func (s *BaseNode) Type() (string)
-func (s *BaseNode) String() (string)
-func (s *BaseNode) Display() (AnyData)
 func NewAnyStruct(need data) (*AnyStruct)
+func (s *NodeAny) init() (void)
+func (s *NodeAny) String() (string)
 */

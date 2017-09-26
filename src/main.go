@@ -57,10 +57,8 @@ func urlDisassemblyHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func debugCallHandler(w http.ResponseWriter, r *http.Request) {
-	nd, dc := diva.NewDebugger(w, r)
+	nd, _ := diva.NewDebugger(w, r)
 	nd.Call()
-
-	fmt.Fprintln(w, <-dc.Ret)
 }
 
 type Ping struct {
