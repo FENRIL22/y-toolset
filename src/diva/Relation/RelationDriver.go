@@ -28,19 +28,16 @@ func (s *RelationDriver) init(ctx context.Context) {
 	s.context = ctx
 }
 
-func (s *RelationDriver) deinit() {
-}
-
 func (s *RelationDriver) Put(re Relation) error {
 	_ = datastore.NewKey(s.context, "Relation", "", 0, nil)
+	//key := datastore.NewKey(s.context, "Relation", "", 0, nil)
 	return nil
 }
 
 func (s *RelationDriver) PutMulti(re []Relation) error {
 	//key := datastore.NewKey(s.context, "Relation", "", 0, nil)
-	_ = datastore.NewKey(s.context, "Relation", "", 0, nil)
 
-	return nil
+	return errors.New("Undefined function")
 }
 
 func (s *RelationDriver) Get(id int64) (Relation, error) {
@@ -60,16 +57,40 @@ func (s *RelationDriver) Get(id int64) (Relation, error) {
 }
 
 func (s *RelationDriver) GetMulti(ids []int64) ([]Relation, error) {
-	return []Relation{}, nil
+	//return []Relation{}, nil
+	return nil, errors.New("UndefineFunc")
 }
 
 func (s *RelationDriver) GetAll() ([]Relation, error) {
+	ctx := s.context
+	var rl []Relation
 
+	q := datastore.NewQuery("Relation")
+	q.GetAll(ctx, &rl)
 
-
-	return []Relation{}, nil
+	return rl, nil
 }
 
-func (s *RelationDriver) Remove(){}
-func (s *RelationDriver) RemoveMulti(){}
+//TODO:correspond to int64 + Relation?
+func (s *RelationDriver) Remove(id int64) error{
+	ctx := s.context
+	var rl []Relation
+
+	q := datastore.NewQuery("Relation").Filter("id =", id).KeysOnly()
+	keys, e := q.GetAll(ctx, &rl)
+
+	if e != nil {
+		return e
+	}
+
+	for _, k := range keys{
+		e = datastore.Delete(ctx, k)
+	}
+
+	return e
+}
+
+func (s *RelationDriver) RemoveMulti() error{
+	return errors.New("UndefineFunc")
+}
 
