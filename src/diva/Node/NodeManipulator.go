@@ -1,4 +1,5 @@
 package node
+//TODO:Delete It?
 
 import (
 	//"fmt"
@@ -16,28 +17,29 @@ import (
  * ドライバとして利用               */
 /* == Struct ======================================================== */
 type NodeManager struct{
-	DataList []Node
+	*nodeDriver NodeDriver
 }
 
-func NewNodeManager() *NodeManager {
+func NewNodeManager(nd *NodeDriver) *NodeManager {
 	s := new(NodeManager)
 
-	s.init()
+	s.init(nd NodeDriver)
 
 	return s
 }
 
-func (s *NodeManager) init() {
+func (s *NodeManager) init(nd *NodeDriver) {
+	s.nodeDriver = nd
 }
 
-func (s *NodeManager) deinit() {
-}
-
-func (s *NodeManager) Get() {
+func (s *NodeManager) Get(nd Node) {
 }
 
 func (s *NodeManager) Put() {
 }
 
-//delete
-//add
+func (s *NodeManager) Create(){
+}
+
+func (s *NodeManager) Delete(){
+}
