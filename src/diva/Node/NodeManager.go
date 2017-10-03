@@ -5,39 +5,39 @@ import (
 	//"time"
 	//"net/http"
 	//"errors"
-	//"context"
+	"context"
 	//"google.golang.org/appengine"
 	//"google.golang.org/appengine/datastore"
 	//"strconv"
 )
 
-/* NodeManager
- * DataStoreとMemoManagerを仲介する *
- * ドライバとして利用               */
 /* == Struct ======================================================== */
 type NodeManager struct{
-	DataList []Node
+	//Delete it?
+	*nodeMpAry []NodeManipulator
+	context context.Context
 }
 
-func NewNodeManager() *NodeManager {
+func NewNodeManager(ctx context.Context) *NodeManager {
 	s := new(NodeManager)
 
-	s.init()
+	s.init(ctx)
 
 	return s
 }
 
-func (s *NodeManager) init() {
+func (s *NodeManager) init(ctx context.Context) {
+	s.context = ctx
+	s.nodeMpAry = new([]NodeManipulator, 0, 5)
 }
 
-func (s *NodeManager) deinit() {
-}
-
-func (s *NodeManager) Get() {
-}
+func (s *NodeManager) Search(){}
 
 func (s *NodeManager) Put() {
 }
 
-//delete
-//add
+func (s *NodeManager) Create(){
+}
+
+func (s *NodeManager) Delete(){
+}
