@@ -14,7 +14,7 @@ import (
 /* == Struct ======================================================== */
 type NodeManager struct{
 	//Delete it?
-	*nodeMpAry []NodeManipulator
+	*nodeList []Node
 	context context.Context
 }
 
@@ -28,7 +28,6 @@ func NewNodeManager(ctx context.Context) *NodeManager {
 
 func (s *NodeManager) init(ctx context.Context) {
 	s.context = ctx
-	s.nodeMpAry = new([]NodeManipulator, 0, 5)
 }
 
 func (s *NodeManager) Search(){}
@@ -40,4 +39,12 @@ func (s *NodeManager) Create(){
 }
 
 func (s *NodeManager) Delete(){
+}
+
+func (s *NodeManager) UpCast(nodegl interface{}) Node {
+	//TODO:Need?
+}
+
+func (s *NodeManager) DownCast(nd Node) interface{} {
+	//TODO:Need?
 }
