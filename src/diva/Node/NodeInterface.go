@@ -8,15 +8,21 @@ import (
 type Node interface{
 	Id() int64					//GetID
 	Type() string				//GetType
-	Save() bool					//Save to Datastore
-	Get() (interface{}, string)	//Get Primary Section and Description
-	String() string
+	SetId(int64)
+	SetTitle(string)
+	SetDescription(string)
+	//SetId()
+	//Save() bool					//Save to Datastore
+	//Get() (interface{}, string)	//Get Primary Section and Description
+	//String() string
 }
 
 /* == Struct ======================================================== */
 type NodeBase struct {
 	id int64
-	dataType string;
+	dataType string
+	Title string
+	Description string
 }
 
 func (s *NodeBase) Id() int64 {
@@ -24,7 +30,19 @@ func (s *NodeBase) Id() int64 {
 }
 
 func (s *NodeBase) Type() string {
-	return s.dataType;
+	return s.dataType
+}
+
+func (s *NodeBase) SetTitle(str string) {
+	s.Title = str
+}
+
+func (s *NodeBase) SetDescription(str string) {
+	s.Description = str
+}
+
+func (s *NodeBase) SetId(inid int64) {
+	s.id = inid
 }
 
 /*

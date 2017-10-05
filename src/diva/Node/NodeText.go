@@ -5,12 +5,12 @@ import (
 
 
 /* == Struct ======================================================== */
-type NodeURL struct {
+type NodeText struct {
 	*NodeBase
 }
 
-func NewNodeURL() *NodeURL{
-	s := new(NodeURL)
+func NewNodeText() *NodeText{
+	s := new(NodeText)
 	s.NodeBase = new(NodeBase)
 
 	s.init()
@@ -18,11 +18,11 @@ func NewNodeURL() *NodeURL{
 	return s
 }
 
-func (s *NodeURL) init() {
-	s.dataType = "NodeURL"
-	s.Title = "korehaURL"
+func (s *NodeText) init() {
+	s.Title = "Text node desu"
+	s.dataType = "NodeText"
 }
 
-func (s *NodeURL) String() string {
+func (s *NodeText) String() string {
 	return "implementing Now... : NodeURL"
 }

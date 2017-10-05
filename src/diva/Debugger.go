@@ -8,8 +8,8 @@ import (
 	"context"
 	"google.golang.org/appengine"
 	//"google.golang.org/appengine/datastore"
-	////"strconv"
 	"lib/diva/Node"
+	////"strconv"
 )
 
 type DivaContext struct{
@@ -56,10 +56,10 @@ func NewDebugger(w http.ResponseWriter, r *http.Request) (*Debugger, *DivaContex
 
 func (s * Debugger) Call() {
 	//nm |= node.NewNodeManager()
-	ts := node.NewNodeURL(12);
+	//ts := node.NewNodeURL(12);
+	ds := node.NewNodeStorage(s.dctx.ctx)
+	hoge := ds.New("Fugafuga")
 
-	fmt.Fprintln(s.dctx.w, ts.Id())
-	fmt.Fprintln(s.dctx.w, ts.Type())
-	fmt.Fprintln(s.dctx.w, ts)
+	fmt.Fprintln(s.dctx.w, hoge)
 
 }
