@@ -32,36 +32,34 @@ func (s *NodeStorage) FindByType(dataType string) {
 
 }
 
-func (s *NodeStorage) FindByName(dataName string) {
+func (s *NodeStorage) FindByName(dataName string, searchType string) {
 	//TODO:name ->FindByFuzzyName?
+	if searchType == "fuzzy" {
+	} else if searchType == "strict" {
+	}
 }
 
-func (s *NodeStorage) New(dataType string) interface{}{
-	//TODO:name ->newNode/Resister?
+func (s *NodeStorage) Register(ndi Node) {
+	//TODO:name ->newNode/New?
+	key := datastore.NewKey(s.context, ndi.GetType(), "", 0, nil)
+	k, _ := datastore.Put(s.context, key, ndi)
+	ndi.SetID(k.IntID())
+	key = datastore.NewKey(s.context, ndi.GetType(), "", k.IntID(), nil)
+	_, _ = datastore.Put(s.context, key, ndi)
+}
 
-	var ndi Node
+func (s *NodeStorage) GetByID (id int64) Node{
+	key := datastore.NewKey(s.context, "NodeURL", "", id, nil)
+	var n Node
+	switch key.Kind(){
+	case "NodeURL":
+		n = NewNodeURL()
+	case "NodeText":
+		n = NewNodeText()
+	}
+	datastore.Get(s.context, key, n)
 
-	//switch dataType {
-	//case "URL":
-	//	ndi = NewNodeURL()
-	//case "Text":
-	//	ndi := NewNodeText()
-	////case "audio"//
-	//default: break
-	//}
-
-	ndi = NewNodeURL()
-
-	var i6 int64 = 12321
-	ndi.SetId(i6)
-
-	key := datastore.NewKey(s.context, "Node", "", 0, nil)
-	keyID, _ := datastore.Put(s.context, key, *ndi)
-	//q := datastore.NewQuery("Node").Filter("id =", 12321)
-	//key, _ = q.GetAll(s.context, ndi)
-
-	//return key
-	return keyID.IntID()
+	return n
 }
 
 func (s *NodeStorage) Delete(){
@@ -78,5 +76,20 @@ func (s *NodeManager) UpCast(nodegl interface{}) Node {
 
 func (s *NodeManager) DownCast(nd Node) interface{} {
 	//TODO:Need?
+	//var i6 int64 = 12321
+	//nd.SetId(i6)
+
+	//nd := ndi.(*NodeURL)
+
+	//switch v := ndi.(type) {
+	//case NodeURL:
+	//	var nd *NodeURL
+	//	nd = ndi.(*NodeURL)
+	//case NodeText:
+	//	var nd *NodeText
+	//	nd = ndi.(*NodeText)
+	//default:
+	//	nd := NewNodeText()
+	//}
 }
 */

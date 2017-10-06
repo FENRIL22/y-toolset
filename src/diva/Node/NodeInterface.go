@@ -6,9 +6,9 @@ import (
 
 /* == Interface ===================================================== */
 type Node interface{
-	Id() int64					//GetID
-	Type() string				//GetType
-	SetId(int64)
+	GetID() int64					//GetID
+	GetType() string				//GetType
+	SetID(int64)
 	SetTitle(string)
 	SetDescription(string)
 	//SetId()
@@ -19,18 +19,18 @@ type Node interface{
 
 /* == Struct ======================================================== */
 type NodeBase struct {
-	id int64
-	dataType string
+	ID int64
+	DataType string
 	Title string
 	Description string
 }
 
-func (s *NodeBase) Id() int64 {
-	return s.id
+func (s *NodeBase) GetID() int64 {
+	return s.ID
 }
 
-func (s *NodeBase) Type() string {
-	return s.dataType
+func (s *NodeBase) GetType() string {
+	return s.DataType
 }
 
 func (s *NodeBase) SetTitle(str string) {
@@ -41,8 +41,8 @@ func (s *NodeBase) SetDescription(str string) {
 	s.Description = str
 }
 
-func (s *NodeBase) SetId(inid int64) {
-	s.id = inid
+func (s *NodeBase) SetID(inid int64) {
+	s.ID = inid
 }
 
 /*

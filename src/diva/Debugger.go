@@ -56,9 +56,12 @@ func NewDebugger(w http.ResponseWriter, r *http.Request) (*Debugger, *DivaContex
 
 func (s * Debugger) Call() {
 	//nm |= node.NewNodeManager()
-	//ts := node.NewNodeURL(12);
+	ts := node.NewNodeURL()
+	ts.SetURL("hogefugahogege.hoge")
 	ds := node.NewNodeStorage(s.dctx.ctx)
-	hoge := ds.New("Fugafuga")
+	ds.Register(ts)
+	//hoge := ds.GetByID(1234)
+	hoge := ts.ID
 
 	fmt.Fprintln(s.dctx.w, hoge)
 

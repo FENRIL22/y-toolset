@@ -20,7 +20,7 @@ func NewNodeText() *NodeText{
 
 func (s *NodeText) init() {
 	s.Title = "Text node desu"
-	s.dataType = "NodeText"
+	s.DataType = "NodeText"
 }
 
 func (s *NodeText) String() string {
