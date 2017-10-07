@@ -4,7 +4,7 @@ import (
 	//"fmt"
 	//"time"
 	//"net/http"
-	//"errors"
+	"errors"
 	"context"
 	//"google.golang.org/appengine"
 	"google.golang.org/appengine/datastore"
@@ -14,6 +14,7 @@ import (
 /* == Struct ======================================================== */
 type NodeStorage struct{
 	context context.Context
+	dataTypeList []string
 }
 
 func NewNodeStorage(ctx context.Context) *NodeStorage {
@@ -26,11 +27,35 @@ func NewNodeStorage(ctx context.Context) *NodeStorage {
 
 func (s *NodeStorage) init(ctx context.Context) {
 	s.context = ctx
+	s.dataTypeList = []string{
+		"NodeURL",
+		"NodeText",
+	}
 }
 
 func (s *NodeStorage) FindByType(dataType string) {
 
 }
+
+func (s *NodeStorage) FindByTitle(title string) interface{}{
+	var ndl []Node
+
+	for _, v := range(s.dataTypeList) {
+		q := datastore.NewQuery(v).Filter("Title =", title)
+
+		keys, _ := q.GetAll(s.context, &ndl)
+
+		if len(keys) > 0 {
+			return ndl
+		}
+	}
+
+	return ndl
+
+	//key := datastore.NewQuery()
+
+}
+
 
 func (s *NodeStorage) FindByName(dataName string, searchType string) {
 	//TODO:name ->FindByFuzzyName?
@@ -62,8 +87,28 @@ func (s *NodeStorage) GetByID (id int64) Node{
 	return n
 }
 
-func (s *NodeStorage) Delete(){
+func (s *NodeStorage) Delete(nd Node) error {
 	//TODO:name ->deleteNode?
+	var ee Node
+	q := datastore.NewQuery(nd.GetType()).Filter("ID =", nd.GetID()).KeysOnly()
+	//q := datastore.NewQuery(nd.GetType()).Filter("Title =", "korehaURL").KeysOnly()
+	keys, err := q.GetAll(s.context, &ee)
+
+	if err != nil {
+		return errors.New("Datastore Error")
+	}
+
+	if len(keys) < 1 {
+		return errors.New("NotFound")
+	}
+
+	err = datastore.DeleteMulti(s.context, keys)
+
+	if err != nil {
+		return errors.New("Datastore Error:delete")
+	}
+
+	return nil
 }
 
 func (s *NodeStorage) Flush(){

@@ -59,10 +59,15 @@ func (s * Debugger) Call() {
 	ts := node.NewNodeURL()
 	ts.SetURL("hogefugahogege.hoge")
 	ds := node.NewNodeStorage(s.dctx.ctx)
-	ds.Register(ts)
-	//hoge := ds.GetByID(1234)
-	hoge := ts.ID
+	var hoge interface{}
 
+	hoge = ds.FindByTitle("korehaURL")
+
+	//ds.Register(ts)
 	fmt.Fprintln(s.dctx.w, hoge)
 
 }
+//Delete
+//ts.SetID(4960996464525312)
+//err := ds.Delete(ts)
+//fmt.Fprintln(s.dctx.w, hoge, err)
