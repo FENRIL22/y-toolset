@@ -40,15 +40,19 @@ func (s *NodeStorage) FindByType(dataType string) {
 func (s *NodeStorage) FindByTitle(title string) interface{}{
 	var ndl []Node
 
-	for _, v := range(s.dataTypeList) {
-		q := datastore.NewQuery(v).Filter("Title =", title)
+	//q := datastore.NewQuery("NodeURL").Filter("Title =", title)
 
-		keys, _ := q.GetAll(s.context, &ndl)
+	//keys, _ := q.GetAll(s.context, &ndl)
+	//for _, v := range(s.dataTypeList) {
+	//	q := datastore.NewQuery(v).Filter("Title =", title)
 
-		if len(keys) > 0 {
-			return ndl
-		}
-	}
+	//	keys, _ := q.GetAll(s.context, &ndl)
+
+	//	if len(keys) > 0 {
+	//		return ndl
+	//	}
+	//}
+
 
 	return ndl
 
@@ -114,6 +118,38 @@ func (s *NodeStorage) Delete(nd Node) error {
 func (s *NodeStorage) Flush(){
 }
 
+func (s *NodeStorage) AllocNode(name string) Node {
+	var nd Node
+
+	if name == "NodeURL" {
+		nd = NewNodeURL()
+	} else if name == "NodeText" {
+		nd = NewNodeText()
+	}
+
+	if nd == nil {
+		return nil
+	}
+
+	return nd
+}
+
+func (s *NodeStorage) AllocNodes(name string, length int) []Node {
+	var nds []Node
+
+	for i:=0;i<length;i++ {
+		nd := s.AllocNode(name)
+		nds = append(nds, nd)
+	}
+
+	return nds
+}
+
+func (s *NodeStorage) GetByKey(key *datastore.Key) {
+}
+
+func (s *NodeStorage) GetByKeys(keys *[]datastore.Key) {
+}
 /*
 func (s *NodeManager) UpCast(nodegl interface{}) Node {
 	//TODO:Need?
