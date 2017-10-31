@@ -59,9 +59,12 @@ func (s * Debugger) Call() {
 	ts := node.NewNodeURL()
 	ts.SetURL("hogefugahogege.hoge")
 	ds := node.NewNodeStorage(s.dctx.ctx)
+
+	ds.Save(ts)
 	var hoge interface{}
 
-	hoge = ds.FindByTitle("korehaURL")
+	//hoge = ds.FindByTitle("korehaURL")
+	hoge = ds.FindByType("NodeURL")
 
 	//ds.Register(ts)
 	fmt.Fprintln(s.dctx.w, hoge)
