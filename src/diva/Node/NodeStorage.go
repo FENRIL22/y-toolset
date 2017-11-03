@@ -39,9 +39,6 @@ func (s *NodeFinder) Title(title string) *NodeFinder {
 	return s
 }
 
-//Impliment
-//func (s *NodeFinder) FuzzyTitle(title string) *NodeFinder {
-//}
 
 func (s *NodeFinder) Description(desc string) *NodeFinder {
 	var nl []Node
@@ -57,9 +54,17 @@ func (s *NodeFinder) Description(desc string) *NodeFinder {
 	return s
 }
 
-//Impliment
-//func (s *NodeFinder) FuzzyDescription(title string) *NodeFinder {
+//Impliment?
+//default:strict search
+//Add: func (s *NodeFinder) Fuzzy~(title string) *NodeFinder {
+//or
+//default:fuzzy search
+//Add: func (s *NodeFinder) Strict~(title string) *NodeFinder {
 //}
+
+//AddFilter?
+//Name
+//URL?
 
 /* == Struct -Main- ================================================= */
 func NewNodeStorage(ctx context.Context) *NodeStorage {
@@ -90,50 +95,6 @@ func (s *NodeStorage) Find(dataType string) *NodeFinder {
 	}
 
 	return nf
-}
-
-func (s *NodeStorage) FindByType(dataType string) []Node {
-	var ndl []Node
-
-	switch dataType {
-	case "NodeURL":
-		ndl = s.getNodeURL()
-	case "NodeText":
-		ndl = s.getNodeText()
-	}
-
-	return ndl
-}
-
-func (s *NodeStorage) FindByTitle(title string) interface{}{
-	var ndl []Node
-
-	//q := datastore.NewQuery("NodeURL").Filter("Title =", title)
-
-	//keys, _ := q.GetAll(s.context, &ndl)
-	//for _, v := range(s.dataTypeList) {
-	//	q := datastore.NewQuery(v).Filter("Title =", title)
-
-	//	keys, _ := q.GetAll(s.context, &ndl)
-
-	//	if len(keys) > 0 {
-	//		return ndl
-	//	}
-	//}
-
-
-	return ndl
-
-	//key := datastore.NewQuery()
-
-}
-
-
-func (s *NodeStorage) FindByName(dataName string, searchType string) {
-	//TODO:name ->FindByFuzzyName?
-	if searchType == "fuzzy" {
-	} else if searchType == "strict" {
-	}
 }
 
 func (s *NodeStorage) SaveMulti(node []Node) {
