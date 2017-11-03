@@ -11,12 +11,57 @@ import (
 	//"strconv"
 )
 
-/* == Struct ======================================================== */
+/* == Struct -finder- ============================================== */
 type NodeStorage struct{
 	context context.Context
 	dataTypeList []string
 }
 
+type NodeFinder struct{
+	Node []Node
+}
+
+func (s *NodeFinder) Get() []Node {
+	return s.Node
+}
+
+func (s *NodeFinder) Title(title string) *NodeFinder {
+	var nl []Node
+
+	for _,v := range(s.Node) {
+		if v.GetTitle() == title {
+			nl = append(nl, v)
+		}
+	}
+
+	s.Node = nl
+
+	return s
+}
+
+//Impliment
+//func (s *NodeFinder) FuzzyTitle(title string) *NodeFinder {
+//}
+
+func (s *NodeFinder) Description(desc string) *NodeFinder {
+	var nl []Node
+
+	for _,v := range(s.Node) {
+		if v.GetDescription() == desc {
+			nl = append(nl, v)
+		}
+	}
+
+	s.Node = nl
+
+	return s
+}
+
+//Impliment
+//func (s *NodeFinder) FuzzyDescription(title string) *NodeFinder {
+//}
+
+/* == Struct -Main- ================================================= */
 func NewNodeStorage(ctx context.Context) *NodeStorage {
 	s := new(NodeStorage)
 
@@ -33,20 +78,31 @@ func (s *NodeStorage) init(ctx context.Context) {
 	}
 }
 
-func (s *NodeStorage) FindByType(dataType string) interface{} {
-	//q := datastore.NewQuery("NodeURL")
+/* create NodeFinder */
+func (s *NodeStorage) Find(dataType string) *NodeFinder {
+	nf := new(NodeFinder)
 
-	//var ndl []NodeURL
-	//_, _ = q.GetAll(s.context, &ndl)
-	////_, _ = q.GetAll(s.context, &ndl)
+	switch dataType {
+	case "NodeURL":
+		nf.Node = s.getNodeURL()
+	case "NodeText":
+		nf.Node = s.getNodeText()
+	}
 
-	////var ndt []Node
+	return nf
+}
 
-	////return keys
-	////return err
-	//return ndl
-	return s.getNodeURL()
+func (s *NodeStorage) FindByType(dataType string) []Node {
+	var ndl []Node
 
+	switch dataType {
+	case "NodeURL":
+		ndl = s.getNodeURL()
+	case "NodeText":
+		ndl = s.getNodeText()
+	}
+
+	return ndl
 }
 
 func (s *NodeStorage) FindByTitle(title string) interface{}{
@@ -77,6 +133,12 @@ func (s *NodeStorage) FindByName(dataName string, searchType string) {
 	//TODO:name ->FindByFuzzyName?
 	if searchType == "fuzzy" {
 	} else if searchType == "strict" {
+	}
+}
+
+func (s *NodeStorage) SaveMulti(node []Node) {
+	for _, v := range(node) {
+		s.Save(v)
 	}
 }
 
