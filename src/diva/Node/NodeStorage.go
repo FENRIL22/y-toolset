@@ -21,9 +21,11 @@ type NodeFinder struct{
 	Node []Node
 }
 
+
 func (s *NodeFinder) Get() []Node {
 	return s.Node
 }
+
 
 func (s *NodeFinder) Title(title string) *NodeFinder {
 	var nl []Node
@@ -75,6 +77,7 @@ func NewNodeStorage(ctx context.Context) *NodeStorage {
 	return s
 }
 
+
 func (s *NodeStorage) init(ctx context.Context) {
 	s.context = ctx
 	s.dataTypeList = []string{
@@ -82,6 +85,7 @@ func (s *NodeStorage) init(ctx context.Context) {
 		"NodeText",
 	}
 }
+
 
 /* create NodeFinder */
 func (s *NodeStorage) Find(dataType string) *NodeFinder {
@@ -97,11 +101,13 @@ func (s *NodeStorage) Find(dataType string) *NodeFinder {
 	return nf
 }
 
+
 func (s *NodeStorage) SaveMulti(node []Node) {
 	for _, v := range(node) {
 		s.Save(v)
 	}
 }
+
 
 func (s *NodeStorage) Save(ndi Node) {
 	//TODO:name ->newNode/New?
@@ -121,6 +127,7 @@ func (s *NodeStorage) Save(ndi Node) {
 		_, _ = datastore.Put(s.context, key, ndi)
 	}
 }
+
 
 func (s *NodeStorage) Delete(nd Node) error {
 	//TODO:name ->deleteNode?
@@ -146,8 +153,10 @@ func (s *NodeStorage) Delete(nd Node) error {
 	return nil
 }
 
+
 // -- low area --
 func (s *NodeStorage) UpCast(nodes []interface{}) []Node {
+	//Need?
 	var node Node
 	var nodel []Node
 
@@ -158,6 +167,7 @@ func (s *NodeStorage) UpCast(nodes []interface{}) []Node {
 
 	return nodel
 }
+
 
 func (s *NodeStorage) getNodeURL() []Node {
 	q := datastore.NewQuery("NodeURL")
@@ -179,9 +189,9 @@ func (s *NodeStorage) getNodeURL() []Node {
 		nodel = append(nodel, nt)
 	}
 
-
 	return nodel
 }
+
 
 func (s *NodeStorage) getNodeText() []Node {
 	q := datastore.NewQuery("NodeText")
@@ -203,83 +213,5 @@ func (s *NodeStorage) getNodeText() []Node {
 		nodel = append(nodel, nt)
 	}
 
-
 	return nodel
 }
-
-//func (s *NodeStorage) AllocNode(name string) Node {
-//	var nd Node
-//
-//	if name == "NodeURL" {
-//		nd = NewNodeURL()
-//	} else if name == "NodeText" {
-//		nd = NewNodeText()
-//	}
-//
-//	if nd == nil {
-//		return nil
-//	}
-//
-//	return nd
-//}
-//
-
-//func (s *NodeStorage) GetByID (id int64) Node{
-//	key := datastore.NewKey(s.context, "NodeURL", "", id, nil)
-//
-//	n := s.AllocNode("NodeURL")
-//
-//	datastore.Get(s.context, key, n)
-//
-//	return n
-//}
-
-/*
-func (s *NodeStorage) Flush(){
-}
-
-func (s *NodeStorage) GetByKey(key *datastore.Key) {
-}
-
-func (s *NodeStorage) GetByKeys(keys *[]datastore.Key) {
-}
-
-func (s *NodeManager) UpCast(nodegl interface{}) Node {
-	//TODO:Need?
-}
-
-func (s *NodeManager) DownCast(nd Node) interface{} {
-	//TODO:Need?
-	//var i6 int64 = 12321
-	//nd.SetId(i6)
-
-	//nd := ndi.(*NodeURL)
-
-	//switch v := ndi.(type) {
-	//case NodeURL:
-	//	var nd *NodeURL
-	//	nd = ndi.(*NodeURL)
-	//case NodeText:
-	//	var nd *NodeText
-	//	nd = ndi.(*NodeText)
-	//default:
-	//	nd := NewNodeText()
-	//}
-}
-func (s *NodeStorage) 0ldgetNodeURL() []Node {
-	q := datastore.NewQuery("NodeURL")
-
-	var ndl []NodeURL
-	_, _ = q.GetAll(s.context, &ndl)
-
-	var node Node
-	var nodel []Node
-
-	for _, v:= range(ndl) {
-		node = v
-		nodel = append(nodel, node)
-	}
-
-	return nodel
-}
-*/

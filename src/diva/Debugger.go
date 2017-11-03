@@ -38,7 +38,6 @@ func NewDivaContext(w http.ResponseWriter, r *http.Request) *DivaContext{
 /* == Struct ======================================================== */
 type Debugger struct{
 	dctx *DivaContext
-	//ctx interface{}
 }
 
 func (s *Debugger) init(dc *DivaContext) {
@@ -54,23 +53,32 @@ func NewDebugger(w http.ResponseWriter, r *http.Request) (*Debugger, *DivaContex
 	return s, dc
 }
 
-func (s * Debugger) Call() {
-	//nm |= node.NewNodeManager()
-	ts := node.NewNodeURL()
-	ts.SetURL("hogefugahogege.hoge")
+func (s *Debugger) Add() {
+	//ts := node.NewNodeURL()
+	//ts.SetURL("TestbyTest.com")
+	ts := node.NewNodeText()
+	ts.SetDescription("HogeHogeHOge")
 	ds := node.NewNodeStorage(s.dctx.ctx)
-
 	ds.Save(ts)
-	var hoge interface{}
+}
 
-	//hoge = ds.FindByTitle("korehaURL")
-	hoge = ds.FindByType("NodeURL")
+func (s * Debugger) Call() {
+	ds := node.NewNodeStorage(s.dctx.ctx)
+	data := ds.Find("NodeURL").Title("korehaURL").Description("tete").Get()
 
-	//ds.Register(ts)
-	fmt.Fprintln(s.dctx.w, hoge)
+	fmt.Fprintln(s.dctx.w, data)
 
 }
 //Delete
 //ts.SetID(4960996464525312)
 //err := ds.Delete(ts)
 //fmt.Fprintln(s.dctx.w, hoge, err)
+
+////EDIT
+//for _,v := range(hoge) {
+////edit by pointer
+//	//fmt.Fprintln(s.dctx.w, v.SetTitle("Fugaa"))
+//	v.SetTitle("gaa")
+//}
+//
+//ds.SaveMulti(hoge)

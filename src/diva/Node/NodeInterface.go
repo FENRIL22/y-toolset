@@ -8,6 +8,8 @@ import (
 type Node interface{
 	GetID() int64					//GetID
 	GetType() string				//GetType
+	GetTitle() string
+	GetDescription() string
 	SetID(int64)
 	SetTitle(string)
 	SetDescription(string)
@@ -35,6 +37,14 @@ func (s *NodeBase) GetType() string {
 
 func (s *NodeBase) SetTitle(str string) {
 	s.Title = str
+}
+
+func (s *NodeBase) GetTitle() string {
+	return s.Title
+}
+
+func (s *NodeBase) GetDescription() string {
+	return s.Description
 }
 
 func (s *NodeBase) SetDescription(str string) {

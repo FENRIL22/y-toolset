@@ -19,11 +19,11 @@ func init(){
 	r := mux.NewRouter()
 	r.HandleFunc("/hoge", hogeHandler)
 	r.HandleFunc("/urldisas/{id}", urlDisassemblyHandler)
-	r.HandleFunc("/add", addHandler)
 	r.HandleFunc("/get", getHandler)
 	r.HandleFunc("/update", updateHandler)
 	r.HandleFunc("/delete", deleteHandler)
 	r.HandleFunc("/jsonping", jsonPingHandler)
+	r.HandleFunc("/add", debugAddHandler)
 	r.HandleFunc("/call", debugCallHandler)
 	r.HandleFunc("/api/sluck/endpoint/{response}", sluckHandler)
 	http.Handle("/", r)
@@ -54,6 +54,11 @@ func urlDisassemblyHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 	fmt.Fprintln(w, id);
+}
+
+func debugAddHandler(w http.ResponseWriter, r *http.Request) {
+	nd, _ := diva.NewDebugger(w, r)
+	nd.Add()
 }
 
 func debugCallHandler(w http.ResponseWriter, r *http.Request) {
