@@ -26,7 +26,7 @@ func init() {
 	r.HandleFunc("/exp/add", debugAddHandler)
 	r.HandleFunc("/exp/call", debugCallHandler)
 	r.HandleFunc("/api/sluck/endpoint/{response}", sluckHandler)
-	r.HandleFunc("/tasker/test", taskerTestHandler)
+	r.HandleFunc("/tasker", taskerTestHandler)
 	http.Handle("/", r)
 }
 
