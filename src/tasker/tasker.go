@@ -3,6 +3,8 @@ package tasker
 import (
 	"fmt"
 	//"html"
+	"encoding/json"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -28,10 +30,12 @@ func (s *Tasker) Return(str string) {
 }
 
 func (s *Tasker) Test() {
-	//ret := s.r.FormValue("post_value")
-	_ = s.r.FormValue("post_value")
-	////a := html.EscapeString(ret)
-
-	//s.Return(fmt.Sprintln(ret))
-	s.Return(fmt.Sprintf("%#v\n", s.r.Body))
+	var dat map[string]interface{}
+	bt, _ := ioutil.ReadAll(s.r.Body)
+	err := json.Unmarshal(bt, &dat)
+	if err != nil {
+		s.Return(err.Error())
+	}
+	//json.NewDecoder(s.r.Body).Decode(dat)
+	s.Return(fmt.Sprintln(dat))
 }
