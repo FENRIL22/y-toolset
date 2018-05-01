@@ -5,6 +5,7 @@ mkdir -p ${PWD}/gopath/src/lib
 LIBS="
 	diva
 	sluck
+	tasker
 "
 
 for i in ${LIBS}; do
@@ -25,8 +26,12 @@ for i in ${DEPENDS}; do
 	sh gg.sh $i
 done
 
-read -p "Input OAuth Token: " token
+echo "Input OAuth Token: "
+read -p "Sample:xorb-**** : " token
 
 echo "env_variables:" > secret.yaml
 echo "  SLACK_TOKEN: '"${token}"'"  >> secret.yaml
+
+sh en_goapp.sh
+
 mv secret.yaml src/
